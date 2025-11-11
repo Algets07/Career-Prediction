@@ -1,0 +1,118 @@
+{% extends "mentor/base.html" %}
+{% load static %}
+{% block title %}AI Career Mentor{% endblock %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'mentor/css/home.css' %}">
+
+<!-- Hero Section -->
+<section class="hero-wrap">
+  <div class="hero-inner">
+    <h1 class="hero-title animate-fade-in-down">🚀 Find Your Best-Fit Career</h1>
+    <p class="hero-sub animate-fade-in-down delay-200">
+      Personalized, data-driven guidance based on your strengths, skills, and interests.
+    </p>
+    <div class="hero-actions animate-fade-in-up delay-400">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'mentor:career_form' %}" class="btn-primary lg">Start Your Journey</a>
+      {% else %}
+      <a href="{% url 'mentor:login' %}" class="btn-primary lg">Start Your Journey</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container features-grid">
+    <div class="feature-card animate-fade-in-up">
+      <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="Personalized" class="feature-icon"/>
+      <h3>🎓 Personalized</h3>
+      <p>Tailored recommendations based on your unique strengths and career aspirations.</p>
+    </div>
+    <div class="feature-card animate-fade-in-up delay-200">
+      <img src="https://img.icons8.com/color/96/lightning-bolt.png" alt="Fast" class="feature-icon"/>
+      <h3>⚡ Fast</h3>
+      <p>Instant AI-powered results with actionable insights for your growth.</p>
+    </div>
+    <div class="feature-card animate-fade-in-up delay-400">
+      <img src="https://img.icons8.com/color/96/compass.png" alt="Practical" class="feature-icon"/>
+      <h3>🧭 Practical</h3>
+      <p>Clear roadmaps — courses, projects, and skills you can start today.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works container">
+  <h2 class="section-title">How It Works</h2>
+  <div class="steps-grid">
+    <div class="step">
+      <img src="https://img.icons8.com/color/96/edit-property.png"/>
+      <h4>Step 1: Tell Us About You</h4>
+      <p>Answer a few questions about your skills, strengths, and interests.</p>
+    </div>
+    <div class="step">
+      <img src="https://img.icons8.com/color/96/artificial-intelligence.png"/>
+      <h4>Step 2: AI Career Match</h4>
+      <p>Our AI analyzes your profile and finds the most suitable career options.</p>
+    </div>
+    <div class="step">
+      <img src="https://img.icons8.com/color/96/road.png"/>
+      <h4>Step 3: Get Your Roadmap</h4>
+      <p>Receive a personalized roadmap with learning paths and projects.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Career Categories -->
+<section class="career-categories container">
+  <h2 class="section-title">Explore Careers</h2>
+  <div class="categories-grid">
+    <div class="cat-card">
+      <img src="{% static 'mentor/img/1000005138.jpg' %}"alt="Tech"/>
+      <h4>Software & AI</h4>
+    </div>
+    <div class="cat-card">
+      <img src="{% static 'mentor/img/1000005143.jpg' %}" alt="Design"/>
+      <h4>Design & Creativity</h4>
+    </div>
+    <div class="cat-card">
+      <img src="{% static 'mentor/img/1000005148.jpg' %}" alt="Business"/>
+      <h4>Business & Management</h4>
+    </div>
+    <div class="cat-card">
+      <img src="{% static 'mentor/img/1000005153.jpg' %}" alt="Healthcare"/>
+      <h4>Healthcare & Medicine</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials container">
+  <h2 class="section-title">What People Say</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User"/>
+      <p>“AI Career Mentor helped me discover my path in Data Science. The roadmap made it simple and clear.”</p>
+      <b>— Priya, Student</b>
+    </div>
+    <div class="testimonial">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User"/>
+      <p>“I was confused about career options. This tool gave me instant clarity and steps to move forward.”</p>
+      <b>— Arjun, Graduate</b>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-wrap">
+  <h2>Ready to Start Your Career Journey?</h2>
+  <a href="{% url 'mentor:career_form' %}" class="btn-primary lg">Get Started Now</a>
+</section>
+<a href="{% url 'mentor:chat_page' %}">
+  <button id="cb-launch" class="butn" aria-label="Open chatbot">
+    <img src="https://img.icons8.com/fluency/48/robot-2.png" alt="Chatbot Avatar" class="chatbot-avatar">
+  </button>
+</a>
+
+{% endblock %}

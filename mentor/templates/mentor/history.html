@@ -1,0 +1,117 @@
+{% extends "mentor/base.html" %}
+{% block title %}Your Assessments · AI Career Mentor{% endblock %}
+
+{% block content %}
+<section class="pro-history">
+  <header class="ph-head">
+    <div class="ph-titles">
+      <h2> History</h2>
+      <p class="muted">Review past recommendations, export PDFs, or tidy up entries.</p>
+    </div>
+    {% if items %}
+      <a class="ph-btn danger"
+         href="{% url 'mentor:delete_all_history' %}"
+         onclick="return confirm('⚠️ Delete ALL your history? This cannot be undone.');">
+        🗑 Delete All
+      </a>
+    {% endif %}
+  </header>
+
+  {% if items %}
+    <div class="ph-card">
+      <table class="ph-table">
+        <thead>
+          <tr>
+            <th style="width: 16rem;">Date</th>
+            <th>Top Career</th>
+            <th style="width: 14rem;">Download</th>
+            <th style="width: 14rem;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            {% with top=item.top3.0 %}
+            <tr>
+              <td>
+                <div class="ph-date">
+                  <span class="day">{{ item.obj.created_at|date:"d M Y, h:i" }}</span>
+                </div>
+              </td>
+              <td class="ph-career">
+                {% if top %}
+                  <strong>{{ top.career }}</strong>
+                {% else %}
+                  <span class="muted">—</span>
+                {% endif %}
+                
+              </td>
+    
+              <td class="ph-actions">
+                <a class="ph-btn ghost" href="{% url 'mentor:export_pdf' item.obj.pk %}" title="Download PDF">📄 PDF</a>
+              </td>
+              <td>
+                <a class="ph-btn danger ghost" href="{% url 'mentor:delete_history' item.obj.pk %}"
+                   onclick="return confirm('Delete this assessment?');" title="Delete entry">🗑 Delete</a>
+              </td>
+            </tr>
+            {% endwith %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="ph-empty ph-card">
+      <div class="icon">🗂️</div>
+      <h3>No assessments yet</h3>
+      <p class="muted">Run your first assessment to build a history.</p>
+      <a class="ph-btn primary" href="{% url 'mentor:career_form' %}">Start Now</a>
+    </div>
+  {% endif %}
+</section>
+<a href="{% url 'mentor:chat_page' %}">
+  <button id="cb-launch" class="butn" aria-label="Open chatbot">
+    <img src="https://img.icons8.com/fluency/48/robot-2.png" alt="Chatbot Avatar" class="chatbot-avatar">
+  </button>
+</a>
+<style>
+    #cb-launch {
+    border: none;
+    background-color: #fda085;
+    cursor: pointer;
+    outline: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+    animation: bounce 2s infinite;
+
+  }
+
+  #cb-launch:hover {
+    transform: scale(1.15);
+  }
+
+  .chatbot-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+
+</style>
+
+{% endblock %}

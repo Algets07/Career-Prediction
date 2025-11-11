@@ -1,0 +1,112 @@
+{% extends "mentor/base.html" %}
+{% load static %}
+{% block title %}Career Assistant Chatbot{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'mentor/css/chat.css' %}">
+
+<div class="chat-wrapper">
+  <header class="chat-header">
+    <h1>💬 Career Assistant</h1>
+  </header>
+
+  <div id="chat-box" class="chat-box"></div>
+
+  <form id="chat-form" class="chat-form" method="post">
+    {% csrf_token %}
+    <div class="input-wrapper">
+      <input type="text" id="user-input" placeholder=" " autocomplete="off">
+      <label for="user-input">Type your message...</label>
+      <button type="submit">Send</button>
+    </div>
+  </form>
+</div>
+
+<script>
+const form = document.getElementById("chat-form");
+const chatBox = document.getElementById("chat-box");
+const input = document.getElementById("user-input");
+const sendButton = form.querySelector("button");
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  // Disable input & send button while bot is typing
+  input.disabled = true;
+  sendButton.disabled = true;
+
+  // Add user message
+  chatBox.insertAdjacentHTML("beforeend", `<div class="message user">${msg}</div>`);
+
+  // Typing indicator
+  const typingId = "typing-" + Date.now();
+  chatBox.insertAdjacentHTML("beforeend", `<div class="message bot" id="${typingId}"><div class="typing"><span></span><span></span><span></span></div></div>`);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // Prepare form data
+  const formData = new FormData();
+  formData.append("message", msg);
+  formData.append("csrfmiddlewaretoken", document.querySelector("[name=csrfmiddlewaretoken]").value);
+
+  try {
+    const res = await fetch("{% url 'mentor:chat_api' %}", { method: "POST", body: formData });
+    const data = await res.json();
+    const reply = data.reply || "Sorry, I couldn't answer that.";
+
+    // --- Remove typing dots ---
+    const typingDiv = document.getElementById(typingId);
+    if (typingDiv) typingDiv.innerHTML = "";
+
+    // --- Split reply into points ---
+    const points = reply.split(/[\n•]/).filter(p => p.trim() !== "");
+
+    // Function to type each point one by one
+    let pointIndex = 0;
+
+    function typeNextPoint() {
+      if (pointIndex < points.length) {
+        const pointText = points[pointIndex].trim();
+        const pointDiv = document.createElement("div");
+        pointDiv.className = "message bot";
+        chatBox.appendChild(pointDiv);
+
+        let charIndex = 0;
+        function typeChar() {
+          if (charIndex < pointText.length) {
+            pointDiv.innerHTML += pointText[charIndex];
+            charIndex++;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            let delay = 20; // typing speed
+            if (".!?".includes(pointText[charIndex - 1])) delay = 80; // pause after punctuation
+            setTimeout(typeChar, delay);
+          } else {
+            pointIndex++;
+            setTimeout(typeNextPoint, 200); // pause between points
+          }
+        }
+        typeChar();
+      } else {
+        // All points typed -> re-enable input
+        input.disabled = false;
+        sendButton.disabled = false;
+        input.focus();
+      }
+    }
+
+    // Start typing points
+    typeNextPoint();
+
+  } catch (err) {
+    const typingDiv = document.getElementById(typingId);
+    if (typingDiv) typingDiv.innerHTML = "⚠️ Network error.";
+    input.disabled = false;
+    sendButton.disabled = false;
+    input.focus();
+  } finally {
+    input.value = "";
+  }
+});
+
+</script>
+{% endblock %}

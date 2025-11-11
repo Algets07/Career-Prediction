@@ -1,0 +1,165 @@
+{% extends "mentor/base.html" %}
+{% block title %}Your Career Recommendations · AI Career Mentor{% endblock %}
+
+{% block content %}
+<section class="neo-wrap">
+  <!-- ===== HERO / TOP MATCH ===== -->
+  <header class="neo-hero">
+    <div class="hero-left">
+      <h1 class="hero-title">Your Best Fit</h1>
+      <p class="hero-sub">We analysed your strengths and interests to find a role that truly matches you.</p>
+
+      <div class="hero-card glass">
+        <div class="ring">
+          {% with pct=top_card.prob|floatformat:0 %}
+          <svg viewBox="0 0 120 120" aria-label="Confidence">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#34d399"/>
+                <stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="52" class="bg"/>
+            <circle cx="60" cy="60" r="52" class="fg" style="--pct: {{ pct }}"/>
+          </svg>
+          <div class="ring-label">
+            <div class="big">{{ pct }}%</div>
+            <small class="muted">confidence</small>
+          </div>
+          {% endwith %}
+        </div>
+
+        <div class="hero-main">
+          <h2 class="career">{{ top_card.career }}</h2>
+          <ul class="pills">
+            <li><span>Demand</span><b>{{ top_card.info.demand|default:"—" }}</b></li>
+            <li><span>Median Salary</span><b>{{ top_card.info.salary|default:"—" }}</b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right glass">
+      <div class="block">
+        {% if top_card.info.courses %}
+          <h3>🎓 Recommended Courses</h3>
+          <ul class="bullets">
+            {% for crs in top_card.info.courses %}
+              <li>{{ crs.title }} <span class="muted">— {{ crs.platform }}</span></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <h3>🎓 Recommended Courses</h3>
+          <p class="muted">We’ll add curated courses for this role soon.</p>
+        {% endif %}
+      </div>
+
+      <div class="block">
+        <h3>🧭 Action Plan</h3>
+        <ol class="steps">
+          {% for step in top_card.roadmap %}
+            <li>{{ step }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </header>
+<section class="neo-section">
+  <div class="sec-head">
+    <h2>Strong Alternatives</h2>
+    <p class="muted">Other career options you might be a strong fit for.</p>
+  </div>
+
+  <div class="alt-stack">
+    {% for c in other_cards %}
+    <article class="alt-card glass">
+      <div class="alt-row">
+        <!-- LEFT -->
+        <div class="alt-left">
+          <h3 class="career">{{ c.career }}</h3>
+         
+          <ul class="kvlist">
+            <li><span>Demand</span><b>{{ c.info.demand|default:"—" }}</b></li>
+            <li><span>Median Salary</span><b>{{ c.info.salary|default:"—" }}</b></li>
+          </ul>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="alt-right">
+          <div class="block">
+            <h4>🎓 Courses</h4>
+            {% if c.info.courses %}
+              <ul class="bullets">
+                {% for crs in c.info.courses %}
+                  <li>{{ crs.title }} <span class="muted">— {{ crs.platform }}</span></li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="muted">No curated courses yet.</p>
+            {% endif %}
+          </div>
+
+          <div class="block">
+            <h4>📌 Next Steps</h4>
+            <ul class="bullets">
+              {% for step in c.roadmap %}
+                <li>{{ step }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="cta">
+    <a class="btn ghost" href="{% url 'mentor:career_form' %}">🔄 Try Again</a>
+    <a class="btn primary" href="{% url 'mentor:home' %}">🏠 Home</a>
+  </div>
+</section>
+</section>
+<a href="{% url 'mentor:chat_page' %}">
+  <button id="cb-launch" class="butn" aria-label="Open chatbot">
+    <img src="https://img.icons8.com/fluency/48/robot-2.png" alt="Chatbot Avatar" class="chatbot-avatar">
+  </button>
+</a>
+<style>  #cb-launch {
+    border: none;
+    background-color: #fda085;
+    cursor: pointer;
+    outline: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+    animation: bounce 2s infinite;
+
+  }
+
+  #cb-launch:hover {
+    transform: scale(1.15);
+  }
+
+  .chatbot-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+</style>
+{% endblock %}

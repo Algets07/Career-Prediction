@@ -1,0 +1,15 @@
+# Core
+Django==4.2.16
+python-decouple==3.8
+
+# PDF Export
+xhtml2pdf==0.2.11
+
+# Optional but recommended
+Pillow==10.4.0
+django-crispy-forms==2.3
+crispy-bootstrap5==2024.2  # if you use Bootstrap
+
+# Testing
+pytest==8.3.3
+pytest-django==4.8.0

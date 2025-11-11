@@ -1,0 +1,141 @@
+  /* ========== Global Reset ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', 'Google Sans', sans-serif;
+  background: linear-gradient(135deg, #f9f9f9 0%, #e9eef4 100%);
+  color: #222;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ========== Header ========== */
+.site-header {
+  background: linear-gradient(90deg, #04090e 0%, #000428 100%);
+  padding: 18px 0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  top: 0;
+  z-index: 1000;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+/* Navigation Links */
+.nav-links a {
+  margin-left: 25px;
+  font-weight: 500;
+  color: #f1f1f1;
+  text-decoration: none;
+  position: relative;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #00c6ff;
+}
+
+/* Subtle underline effect */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #00c6ff;
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ========== Alerts ========== */
+.alert {
+  margin: 20px 0;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.alert.success {
+  background: #e6f4ea;
+  color: #1e4620;
+}
+.alert.error {
+  background: #fdecea;
+  color: #611a15;
+}
+
+/* ========== Main ========== */
+main.container {
+  flex: 1;
+  padding: 50px 0;
+}
+
+/* Cards (for forms or sections) */
+.card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button, .btn {
+  background: linear-gradient(135deg, #004e92, #000428);
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover, .btn:hover {
+  background: linear-gradient(135deg, #0072ff, #004e92);
+  transform: translateY(-2px);
+}
+
+/* ========== Footer ========== */
+.site-footer {
+  background: #0a0a0a;
+  color: #ccc;
+  padding: 25px 0;
+  text-align: center;
+  font-size: 0.95rem;
+  border-top: 3px solid rgba(255,255,255,0.05);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer p span {
+  color: #00c6ff;
+}

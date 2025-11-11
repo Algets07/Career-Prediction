@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Software Engineer",
+    "salary": "₹6L–₹24L / year (India) · $80k–$180k (US)",
+    "demand": "Very High",
+    "courses": [
+      {"title": "CS50 — Intro to CS", "platform": "edX"},
+      {"title": "Algorithms, Part I", "platform": "Coursera"}
+    ]
+  },
+  {
+    "name": "Data Scientist",
+    "salary": "₹8L–₹30L / year (India) · $100k–$200k (US)",
+    "demand": "Very High",
+    "courses": [
+      {"title": "Machine Learning", "platform": "Coursera"},
+      {"title": "Deep Learning Specialization", "platform": "Coursera"}
+    ]
+  },
+  {
+    "name": "Doctor / Healthcare",
+    "salary": "₹6L–₹20L / year (India) · $120k–$250k (US)",
+    "demand": "High",
+    "courses": [
+      {"title": "Human Physiology", "platform": "Coursera"},
+      {"title": "Public Health Foundations", "platform": "Coursera"}
+    ]
+  },
+  {
+    "name": "Lawyer / Legal",
+    "salary": "₹4L–₹18L / year (India) · $70k–$200k (US)",
+    "demand": "Medium",
+    "courses": [
+      {"title": "Cyber Law Basics", "platform": "NPTEL"},
+      {"title": "Intellectual Property Law", "platform": "Coursera"}
+    ]
+  },
+  {
+    "name": "Designer / UI-UX",
+    "salary": "₹4L–₹16L / year (India) · $60k–$140k (US)",
+    "demand": "High",
+    "courses": [
+      {"title": "Google UX Design", "platform": "Coursera"},
+      {"title": "Figma for UX/UI", "platform": "Udemy"}
+    ]
+  },
+  {
+    "name": "Entrepreneur / Manager",
+    "salary": "Varies widely (equity + salary)",
+    "demand": "High",
+    "courses": [
+      {"title": "Entrepreneurship", "platform": "edX"},
+      {"title": "Digital Marketing", "platform": "Coursera"}
+    ]
+  },
+  {
+    "name": "Teacher / Academic",
+    "salary": "₹3L–₹12L / year (India) · $45k–$110k (US)",
+    "demand": "Steady",
+    "courses": [
+      {"title": "Instructional Design", "platform": "Coursera"},
+      {"title": "Educational Psychology", "platform": "edX"}
+    ]
+  },
+  {
+    "name": "Content Creator / Media",
+    "salary": "₹2L–₹12L / year (India) · $40k–$120k (US) + sponsorships",
+    "demand": "High",
+    "courses": [
+      {"title": "Storytelling & Video Editing", "platform": "Udemy"},
+      {"title": "Social Media Marketing", "platform": "Coursera"}
+    ]
+  }
+]

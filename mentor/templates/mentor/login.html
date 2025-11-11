@@ -1,0 +1,44 @@
+{% extends "mentor/base.html" %}
+{% load static %}
+{% block title %}Log In · AI Career Mentor{% endblock %}
+{% block content %}
+<section class="auth-wrap">
+  <!-- Left: Visual -->
+  <aside class="auth-visual">
+    <img src="{% static 'mentor/img/IMG-20250906-WA0007.jpg' %}" alt="Career guidance illustration">
+    <div class="overlay">
+      <h2>Welcome back</h2>
+      <p>Pick up where you left off—your personalized career path awaits.</p>
+    </div>
+  </aside>
+
+  <!-- Right: Form -->
+  <div class="auth-card">
+    <header class="auth-head">
+      <h1>Log in</h1>
+      <p class="muted">Use your account to view recommendations and history.</p>
+    </header>
+
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      <div class="field">
+        <label for="id_username">Username</label>
+        <input id="id_username" class="input" type="text" name="username" autocomplete="username" required>
+      </div>
+
+      <div class="field">
+        <label for="id_password">Password</label>
+        <input id="id_password" class="input" type="password" name="password" autocomplete="current-password" required>
+      </div>
+
+
+      <div class="form-actions">
+        <a class="btn-secondary" href="{% url 'mentor:home' %}">Back</a>
+        <button class="btn-primary" type="submit">Log In</button>
+      </div>
+    </form>
+
+    <p class="muted foot">No account? <a href="{% url 'mentor:signup' %}">Create one</a></p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}AI Career Mentor{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'mentor/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'mentor/css/base.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:wght,FILL,GRAD,opsz@400,0,0,24" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="{% url 'mentor:home' %}">AI Career Mentor</a>
+      <nav class="nav-links">
+        <a href="{% url 'mentor:home' %}">Home</a>
+        <a href="{% url 'mentor:career_form' %}">Get Recommendations</a>
+        <a href="https://www.linkedin.com/learning/" target="_blank" rel="noopener">Skills</a>
+        <a href="https://www.w3schools.com/" target="_blank" rel="noopener">Courses</a>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'mentor:history' %}">History</a>
+    <a href="{% url 'mentor:logout' %}">Logout</a>
+  {% else %}
+    <a href="{% url 'mentor:login' %}">Login</a>
+    <a href="{% url 'mentor:signup' %}">Sign Up</a>
+  {% endif %}
+
+      </nav>
+    </div>
+  </header>
+
+  {% if messages %}
+    <div class="container">
+      {% for m in messages %}
+        <div class="alert {{ m.tags }}">{{ m }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© {{ now|date:"Y" }} AI Career Mentor · Built with ❤️ for students</p>
+    </div>
+  </footer>
+</body>
+</html>

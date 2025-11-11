@@ -1,0 +1,133 @@
+{% extends "mentor/base.html" %}
+{% load static %}
+{% block title %}Tell us about you · AI Career Mentor{% endblock %}
+
+
+{% block content %}
+<section class="form-wrapper">
+  <header class="section-head">
+    <h2>Tell us about you</h2>
+    <p class="muted">
+      Enter your scores (0–100) and share your interests. We’ll recommend careers with an actionable roadmap.
+    </p>
+  </header>
+
+  <form method="post" class="styled-form" novalidate>
+    {% csrf_token %}
+
+    <h3 class="section-title">🎓 Academic Scores</h3>
+    <div class="form-columns">
+      <div class="field">
+        <label for="{{ form.math.id_for_label }}">Math</label>
+        {{ form.math }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.science.id_for_label }}">Science</label>
+        {{ form.science }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.english.id_for_label }}">English</label>
+        {{ form.english }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.arts.id_for_label }}">Arts / Design</label>
+        {{ form.arts }}
+      </div>
+    </div>
+
+    <h3 class="section-title">🧠 Skills</h3>
+    <div class="form-columns">
+      <div class="field">
+        <label for="{{ form.coding.id_for_label }}">Coding</label>
+        {{ form.coding }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.design.id_for_label }}">Design</label>
+        {{ form.design }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.leadership.id_for_label }}">Leadership</label>
+        {{ form.leadership }}
+      </div>
+
+      <div class="field">
+        <label for="{{ form.communication.id_for_label }}">Communication</label>
+        {{ form.communication }}
+      </div>
+    </div>
+
+    <h3 class="section-title">💬 Interests</h3>
+    <div class="field">
+      {{ form.interests }}
+      <small class="help">e.g., “AI, app development, startups” or “law, debate, public policy”.</small>
+    </div>
+
+    <div class="form-actions">
+      <a class="btn-secondary" href="{% url 'mentor:home' %}">Back</a>
+      <button class="btn-primary" type="submit">Get Recommendations</button>
+    </div>
+  </form>
+</section>
+<a href="{% url 'mentor:chat_page' %}">
+  <button id="cb-launch" class="butn" aria-label="Open chatbot">
+    <img src="https://img.icons8.com/fluency/48/robot-2.png" alt="Chatbot Avatar" class="chatbot-avatar">
+  </button>
+</a>
+
+
+<script>
+  document.addEventListener('input', function (e) {
+    if (e.target.classList.contains('input') && e.target.type === 'number') {
+      const v = parseFloat(e.target.value);
+      if (!isNaN(v)) {
+        e.target.value = Math.max(0, Math.min(100, v));
+      }
+    }
+  });
+</script>
+<style>
+    #cb-launch {
+    border: none;
+    background-color: #fda085;
+    cursor: pointer;
+    outline: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease-in-out;
+    animation: bounce 2s infinite;
+
+  }
+
+  #cb-launch:hover {
+    transform: scale(1.15);
+  }
+
+  .chatbot-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+
+
+</style>
+{% endblock %}
